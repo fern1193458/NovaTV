@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'fullname',
         'email',
+        'phone',
+        'photo',
         'password',
+        'role_id',
     ];
 
     /**
@@ -41,4 +44,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAllUsers(){
+        return User::all();
+    }
+
+    public function getUser($id){
+        return User::find($id);
+    }
+
+    // Relaciones
+    public function movies(){
+        return $this->hasMany('App\Movie');
+    }
+
+    public function role(){
+        return $this->belongsTo('App\Role');
+    }
 }
