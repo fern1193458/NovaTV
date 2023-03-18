@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\User;
+use App\Models\Role;
 
-class CategoryController extends Controller
+use Illuminate\Http\Request;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +16,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
-        // $categories = Category::all();
-        return view('elements.categories.index')->with('categories', $categories);
-        // Retornar vista inyectando todos las categorias
+        // $user = User::paginate(10);
+        $users = User::all();
+        dd($users);
+        // Retornar vista inyectando todos los usuarios
 
     }
 
@@ -28,8 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('elements.categories.create');
-        // Retornar la vista elements.categories.create
+        $roles = Role::all();
+        // Retornar la vista elements.users.create
     }
 
     /**
@@ -40,13 +42,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category;
+        $user = new User;
 
-        $category->name = $request->name;
-        $category->description = $request->description;
+        $user->fullname = $request->fullname;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        if($request->hasFile('photo')){
+            $file = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/profiles', $file));
+            $user->photo = 'images/profiles/'.$file;
+        }
         
-        if($category->save()){
-            dd($category);
+        $user->password = bcrypt($request->password);
+        $user->role_id = $request->role_id;
+
+        if($user->save()){
+            dd($user);
             //Retornar la vista
         }
         
@@ -60,8 +71,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::find($id);
-        dd($category);
+        $user = User::find($id);
+        dd($user);
         // Retornar la vista
     }
 
@@ -73,7 +84,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
+        $user = User::find($id);
         //Retorna la vista con el formulario de edición del usuario 
     }
 
@@ -86,13 +97,22 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        $user = User::find($id);
 
-        $category->name = $request->name;
-        $category->description = $request->description;
+        $user->fullname = $request->fullname;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        if($request->hasFile('photo')){
+            $file = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/profiles', $file));
+            $user->photo = 'images/profiles/'.$file;
+        }
         
-        if($category->save()){
-            dd($category);
+        $user->password = bcrypt($request->password);
+        $user->role_id = $request->role_id;
+
+        if($user->save()){
+            dd($user);
             //Retornar la vista
         }
 
@@ -106,9 +126,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $user = User::find($id);
         
-        if($category->delete()){
+        if($user->delete()){
             // Retorne la vista index con el mensaje que pudo eliminar el elemento exitosamente
         }
     }
