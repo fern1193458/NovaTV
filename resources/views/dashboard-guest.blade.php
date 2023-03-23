@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'NovaTV - Home')
 @section('content')
     <div class="row">
         <div class="col-md-10 offset-md-1">

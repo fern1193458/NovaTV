@@ -6,29 +6,27 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MovieController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', [App\Http\Controllers\HomeController::class, 'welcome'])->name('welcome');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/test', function () {
+//     $day = 'Saturday';
+//     return view('test')->with('day',$day);
+// });
 
+// Route::get('/index', [EjemploController::class, 'index']);
+// Route::get('/users/{id}', [EjemploController::class, 'getUser']);
+
+Route::resources([
+    'users' => UserController::class,
+    'categories' => CategoryController::class,
+    'movies' => MovieController::class
+]);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resources([
-    'users' => UserController:: class,
-    'categories' => CategoryController::class,
-    'movies' =>MovieController::class
-    ]);
-
-    
+// Filter
+Route::post('category/filter', [App\Http\Controllers\HomeController::class, 'filter']);

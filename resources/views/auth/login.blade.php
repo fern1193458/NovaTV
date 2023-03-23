@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'NovaTV - Iniciar sesión')
 
 @section('content')
 <div class="container">

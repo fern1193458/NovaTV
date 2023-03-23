@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
     {
         // Inserción individual mediante ORM
         $user = new User;
-        $user->fullname = 'fernando vasques ';
-        $user->email = 'fernando.vasquesg@autonoma.edu.co';
-        $user->phone = '30231942625';
+        $user->fullname = 'fernando vasques gonzales';
+        $user->email = 'fernando.vasquezg@autonoma.edu.co';
+        $user->phone = '3023194262';
         $user->photo = 'images/no-photo.png';
         $user->password = bcrypt('admin');
         $user->role_id = 1;
@@ -28,9 +28,9 @@ class UserSeeder extends Seeder
 
         // Inserción individual mediante conexión a Base de datos
         DB::table('users')->insert([
-            'fullname' => 'martah lopes',
-            'email'    => 'marhalps@gmail.com',
-            'phone'    => '3ç65465568',
+            'fullname' => 'martha cecilia',
+            'email'    => 'marthacecilia38@gmail.com',
+            'phone'    => '3264567547',
             'photo'    => 'images/no-photo.png',
             'password' => bcrypt('guest'),
             'role_id'  => 2,
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         ]);
 
         // Inserción masiva
-        // for ($i=0; $i < 100; $i++) {
+        // for ($i=0; $i < 100; $i++) { 
         //     $user = new User;
         //     $user->fullname = 'Nombre Prueba '.$i;
         //     $user->email = 'correo.prueba.'.$i.'@autonoma.edu.co';
@@ -48,6 +48,6 @@ class UserSeeder extends Seeder
         //     $user->role_id = 2;
         //     $user->save();
         // }
-
+        
     }
 }
